@@ -5,90 +5,93 @@ import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Scanner;
 
-public class crudCliDemoMain {
+public class CrudDemoMain {
     public static void main(String[] args) {
-        ArrayList<Laptop> cL= new ArrayList<>();
+        Operators[] eNum = Operators.values();
+        ArrayList<Laptop> cL = new ArrayList<>();
         Scanner intObj = new Scanner(System.in);
         Scanner stringObj = new Scanner(System.in);
-        int value;
+        int input;
         do{
-
             System.out.println("1. CREATE");
             System.out.println("2. PRINT DATA");
             System.out.println("3. SEARCH");
             System.out.println("4. DELETE");
             System.out.println("5. UPDATE");
             System.out.println("Enter the choice: ");
-            value= intObj.nextInt();
-            switch (value){
-                case 1:
+            input= intObj.nextInt();
+            switch (Operators.valueOfLabel(Integer.parseInt(String.valueOf(input)))) {
+                case CREATE:
                     System.out.println("Enter Laptop no : ");
-                    int lapId= intObj.nextInt();
+                    int lapId = intObj.nextInt();
                     System.out.println("Enter Laptop name: ");
                     String lapName = stringObj.nextLine();
                     System.out.println("Enter Laptop price :");
                     int lapPrice = intObj.nextInt();
-                    cL.add(new Laptop(lapId,lapName,lapPrice));
+                    cL.add(new Laptop(lapId, lapName, lapPrice));
+                    System.out.println("Data is created");
                     break;
-                case 2:
+                case PRINT:
                     Iterator<Laptop> itr = cL.iterator();
-                    while (itr.hasNext()){
-                        Laptop l1=  itr.next();
+                    while (itr.hasNext()) {
+                        Laptop l1 = itr.next();
                         System.out.println(l1);
                     }
                     break;
-                case 3:
+                case SEARCH:
                     System.out.println("Enter Lap_id to search");
-                    lapId= intObj.nextInt();
+                    lapId = intObj.nextInt();
                     itr = cL.iterator();
-                    while(itr.hasNext()){
-                        Laptop l1= itr.next();
-                        if(l1.getLapId()==lapId){
+                    while (itr.hasNext()) {
+                        Laptop l1 = itr.next();
+                        if (l1.getLapId() == lapId) {
                             System.out.println(l1);
                         }
                     }
                     break;
-                case 4:
+                case DELETE:
                     System.out.println("Enter Lap_id to Delete");
-                    lapId= intObj.nextInt();
+                    lapId = intObj.nextInt();
                     itr = cL.iterator();
-                    while(itr.hasNext()){
-                        Laptop l1= itr.next();
-                        if(l1.getLapId()==lapId){
+                    while (itr.hasNext()) {
+                        Laptop l1 = itr.next();
+                        if (l1.getLapId() == lapId) {
                             itr.remove();
 
                             System.out.println("Data deleted successfully");
-                        }
-                        else {
+                        } else {
                             System.out.println("Data entered is not available");
                         }
                     }
                     break;
-                case 5:
+                case UPDATE:
                     System.out.println("Enter Laptop no : ");
-                    lapId= intObj.nextInt();
+                    lapId = intObj.nextInt();
                     System.out.println("Enter Laptop name: ");
                     lapName = stringObj.nextLine();
                     System.out.println("Enter Laptop price :");
-                    lapPrice = intObj.nextInt();;
-                    ListIterator ltr= cL.listIterator();
-                    while(ltr.hasNext()){
+                    lapPrice = intObj.nextInt();
+                    ListIterator ltr = cL.listIterator();
+                    while (ltr.hasNext()) {
                         Laptop l1 = (Laptop) ltr.next();
-                        if(l1.getLapId()==lapId){
+                        if (l1.getLapId() == lapId) {
                             l1.setLapName(lapName);
                             l1.setLapPrice(lapPrice);
                             System.out.println(l1);
+                            System.out.println("Data is Updated");
                         }
                     }
                     break;
                 default:
                     System.out.println("Invalid value");
-
-
             }
+        }while ((input!=0));
 
-        } while (value!=0);
 
     }
-
 }
+
+
+
+
+
